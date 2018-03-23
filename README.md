@@ -1,7 +1,7 @@
 # storypictures.js
 A javascript library to make pictures with stories (or any string). The only dependency is [ROT.js](https://github.com/ondras/rot.js/). Supports browser, require.js, Webpack and any other module loader you could possibly think of. The online demo of this library is at [my website](http://thegreatrambler.com/code-demos/storypictures/index.html).
 
-![Screenshot of the library at work]()
+![Screenshot of the library at work](storyphotossmall-min.png)
 
 ## API
 
