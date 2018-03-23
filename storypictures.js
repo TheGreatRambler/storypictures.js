@@ -75,7 +75,7 @@
             for (i = 0; i < data32.length; i++) {
                 var x = i % tempCtx.canvas.width;
                 var y = (i / tempCtx.canvas.width) | 0;
-                var indextoplace = suidzik(x, y);
+                var indextoplace = szudzik(x, y);
                 var red;
                 var green;
                 var blue;
@@ -109,7 +109,7 @@
             };
         }
 
-        function suidzik(xx, yy) {
+        function szudzik(xx, yy) {
             var number = (xx >= yy) ? (xx * xx + xx + yy) : (yy * yy + xx);
             return number;
         }
@@ -127,7 +127,7 @@
 
             for (var y = 0; y < thedata.height; y++) {
                 for (var x = 0; x < thedata.width; x++) {
-                    var use = thedata.pixels[suidzik(x, y)];
+                    var use = thedata.pixels[szudzik(x, y)];
                     if (use) {
                         display.draw(x * 2, y, texttouse.charAt(currentindexoftext));
                         currentindexoftext++;
