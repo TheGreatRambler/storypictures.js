@@ -15,7 +15,7 @@
     } else if (typeof module === 'object' && module.exports) {
         module.exports = factory(require('ROT'));
     } else {
-        root.returnExports = factory(root.ROT);
+        root.storypictures = factory(root.ROT);
     }
 }(typeof self !== 'undefined' ? self : this, function(b) {
     function storypictures(data) {
