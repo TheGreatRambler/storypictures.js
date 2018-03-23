@@ -17,9 +17,6 @@
             canvas.height = data.img.height;
             context = canvas.getContext('2d');
             context.drawImage(img, 0, 0);
-        } else if (data.img.tagName && data.img.tagName === "CANVAS") {
-            canvas = data.img;
-            context = data.img.getContext("2d");
         } else if (data.img instanceof CanvasRenderingContext2D) {
             canvas = data.img.context;
             context = data.img;
