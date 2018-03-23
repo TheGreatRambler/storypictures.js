@@ -11,8 +11,9 @@
  * ██╔═══╝ ██║██║        ██║   ██║   ██║██╔══██╗██╔══╝  ╚════██║
  * ██║     ██║╚██████╗   ██║   ╚██████╔╝██║  ██║███████╗███████║
  * ╚═╝     ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝
- *
- * Copyright TheGreatRambler 2018 MIT
+ * -------------------------------------------------------------
+ * Brought to you by the programming virtuoso TheGreatRambler
+ * Copyright 2018 MIT
  */
 
 (function(root, factory) {
@@ -25,7 +26,6 @@
     }
 }(typeof self !== 'undefined' ? self : this, function(b) {
     function storypictures(data) {
-        // arguments: img, story, solidityFunc
         var canvas;
         var context;
         if (data.img instanceof HTMLImageElement) {
@@ -33,7 +33,7 @@
             canvas.width = data.img.width;
             canvas.height = data.img.height;
             context = canvas.getContext('2d');
-            context.drawImage(img, 0, 0);
+            context.drawImage(data.img, 0, 0);
         } else if (data.img instanceof CanvasRenderingContext2D) {
             canvas = data.img.context;
             context = data.img;
@@ -59,7 +59,9 @@
         var dataattempt2 = getVariousData(scaleattempt1, data.solidityFunc);
         var scaleattempt2 = Math.sqrt(data.story.length / (dataattempt2.spotsopen * 2)) * scaleattempt1;
         var datafinal = getVariousData(scaleattempt2, data.solidityFunc);
-        startdrawing(datafinal, data.story);
+        var returncontext = startdrawing(datafinal, data.story);
+        
+        return returncontext;
 
         function checkEndian() {
             var b = new ArrayBuffer(4);
