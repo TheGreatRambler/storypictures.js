@@ -1,0 +1,5 @@
+{
+  name: "storypictures",
+  license: "MIT",
+  files: ["ROT.js"]
+}
