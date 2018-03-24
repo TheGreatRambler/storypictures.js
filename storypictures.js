@@ -40,6 +40,9 @@
         } else {
             throw new TypeError("Image must be canvas, context, or image element");
         }
+        
+        // used to remove linebreaks
+        data.story = data.story.replace(/(?:\r\n|\r|\n)/g, "");
 
         if (!data.solidityFunc) {
             data.solidityFunc = function(red, green, blue, alpha) {
