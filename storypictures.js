@@ -151,7 +151,7 @@
                 if (storyisarray) {
                     if (Object.prototype.toString.call(texttouse[currentindexoftext]) === '[object Object]') {
                         if (texttouse[currentindexoftext].c) {
-                            display.draw(xxx, yyy, texttouse[currentindexoftext], texttouse[currentindexoftext].c);
+                            display.draw(xxx, yyy, texttouse[currentindexoftext].n, texttouse[currentindexoftext].c);
                         } else {
                             display.draw(xxx, yyy, texttouse[currentindexoftext]);
                         }
