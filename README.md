@@ -30,7 +30,17 @@ $.ajax({
   data.story = result;
 });
 ```
-The story parameter is the string which you want to conform to the picture.
+The story parameter is the string which you want to conform to the picture. You can also use an array of objects. This gives you the freedom to specify the color of the the text. You can use this to make text that is bold and text that is not by making the default grey and change some text to black.
+
+```javascript
+data.story = [{
+  n: "l",
+  c: "#000000"
+}, {
+  n: "e",
+  c: "#001100"
+}, ...];
+```
 
 ### solidityFunc -- optional!
 
