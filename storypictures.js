@@ -38,7 +38,7 @@
             canvas = data.img.context;
             context = data.img;
         } else {
-            throw new TypeError("Image must be canvas, context, or image element");
+            throw new TypeError("Image must context or image element");
         }
         
         // used to remove linebreaks
@@ -146,15 +146,29 @@
                 fg: "#000000"
             });
             var currentindexoftext = 0;
-
+            var storyisarray = (story.constructor === Array);
+            function drawthething(xxx, yyy) {
+                if (storyisarray) {
+                    if (Object.prototype.toString.call(texttouse[currentindexoftext]) === '[object Object]') {
+                        if (texttouse[currentindexoftext].c) {
+                            display.draw(xxx, yyy, texttouse[currentindexoftext], texttouse[currentindexoftext].c);
+                        } else {
+                            display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                        }
+                    } else {
+                        display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                    }
+                } else {
+                    display.draw(xxx, yyy, texttouse.charAt(currentindexoftext));
+                }
+                currentindexoftext++;
+            }
             for (var y = 0; y < thedata.height; y++) {
                 for (var x = 0; x < thedata.width; x++) {
                     var use = thedata.pixels[szudzik(x, y)];
                     if (use) {
-                        display.draw(x * 2, y, texttouse.charAt(currentindexoftext));
-                        currentindexoftext++;
-                        display.draw(x * 2 + 1, y, texttouse.charAt(currentindexoftext));
-                        currentindexoftext++;
+                        drawthething(x * 2, y);
+                        drawthething(x * 2 + 1, y);
                     }
                 }
             }
