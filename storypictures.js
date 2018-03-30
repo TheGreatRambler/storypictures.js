@@ -146,7 +146,7 @@
                 fg: "#000000"
             });
             var currentindexoftext = 0;
-            var storyisarray = (story.constructor === Array);
+            var storyisarray = (texttouse.constructor === Array);
             function drawthething(xxx, yyy) {
                 if (storyisarray) {
                     if (Object.prototype.toString.call(texttouse[currentindexoftext]) === '[object Object]') {
