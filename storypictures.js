@@ -24,7 +24,7 @@
     } else {
         root.storypictures = factory(root.ROT);
     }
-}(typeof self !== 'undefined' ? self : this, function(b) {
+}(typeof self !== 'undefined' ? self : this, function(ROT) {
     function storypictures(data) {
         var canvas;
         var context;
@@ -44,24 +44,24 @@
         // used to remove linebreaks
         data.story = data.story.replace(/(?:\r\n|\r|\n)/g, "");
 
-        if (!data.solidityFunc) {
-            data.solidityFunc = function(red, green, blue, alpha) {
+        if (!data.tileOpen) {
+            data.tileOpen = function(red, green, blue, alpha) {
                 var luma = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
                 if (luma < 40) {
-                    return true;
-                } else {
                     return false;
+                } else {
+                    return true;
                 }
             };
         }
 
 
         var startscale = 1;
-        var dataattempt1 = getVariousData(startscale, data.solidityFunc);
+        var dataattempt1 = getVariousData(startscale);
         var scaleattempt1 = Math.sqrt(data.story.length / (dataattempt1.spotsopen * 2)) * startscale;
-        var dataattempt2 = getVariousData(scaleattempt1, data.solidityFunc);
+        var dataattempt2 = getVariousData(scaleattempt1);
         var scaleattempt2 = Math.sqrt(data.story.length / (dataattempt2.spotsopen * 2)) * scaleattempt1;
-        var datafinal = getVariousData(scaleattempt2, data.solidityFunc);
+        var datafinal = getVariousData(scaleattempt2);
         var returncontext = startdrawing(datafinal, data.story);
         
         return returncontext;
@@ -75,7 +75,7 @@
             if (c[0] == 0xde) return false;
         }
 
-        function getVariousData(scalefactor, solidness) {
+        function getVariousData(scalefactor) {
             var dataarray = [];
             var numofopenspots = 0;
 
@@ -115,11 +115,13 @@
                     alpha = data32[i] & 0x000000FF;
                 }
 
-                if (solidness(red, green, blue, alpha)) {
-                    dataarray[indextoplace] = false;
-                } else {
+                if (data.tileOpen(red, green, blue, alpha)) {
                     numofopenspots++;
-                    dataarray[indextoplace] = true;
+                    if (data.color) {
+                        dataarray[indextoplace] = "rgb(" + red + "," + green + "," + blue + ");";
+                    } else {
+                        dataarray[indextoplace] = true;
+                    }
                 }
             }
 
@@ -147,7 +149,7 @@
             });
             var currentindexoftext = 0;
             var storyisarray = (texttouse.constructor === Array);
-            function drawthething(xxx, yyy) {
+            function drawthething(xxx, yyy, color) {
                 if (storyisarray) {
                     if (Object.prototype.toString.call(texttouse[currentindexoftext]) === '[object Object]') {
                         if (texttouse[currentindexoftext].c) {
@@ -156,10 +158,18 @@
                             display.draw(xxx, yyy, texttouse[currentindexoftext]);
                         }
                     } else {
-                        display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                        if (color) {
+                            display.draw(xxx, yyy, texttouse[currentindexoftext], color);
+                        } else {
+                            display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                        }
                     }
                 } else {
-                    display.draw(xxx, yyy, texttouse.charAt(currentindexoftext));
+                    if (color) {
+                        display.draw(xxx, yyy, texttouse.charAt(currentindexoftext), color);
+                    } else {
+                        display.draw(xxx, yyy, texttouse.charAt(currentindexoftext));
+                    }
                 }
                 currentindexoftext++;
             }
@@ -167,8 +177,13 @@
                 for (var x = 0; x < thedata.width; x++) {
                     var use = thedata.pixels[szudzik(x, y)];
                     if (use) {
-                        drawthething(x * 2, y);
-                        drawthething(x * 2 + 1, y);
+                        if (data.color) {
+                            drawthething(x * 2, y, use);
+                            drawthething(x * 2 + 1, y, use);
+                        } else {
+                            drawthething(x * 2, y);
+                            drawthething(x * 2 + 1, y);
+                        }
                     }
                 }
             }
