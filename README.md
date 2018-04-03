@@ -42,19 +42,26 @@ data.story = [{
 }, ...];
 ```
 
-### solidityFunc -- optional!
+### tileOpen -- optional!
 
 ```javascript
-data.solidityFunc = function(r, g, b, alpha) {
+data.tileOpen = function(r, g, b, alpha) {
   var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   if (luma < 40) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };
 ```
-The function used to determine wether a given spot will not have text at it. The default function returns `true` if the spot is dark (black).
+The function used to determine wether a given spot will have text at it. The default function returns `true` if the spot is not dark (black).
+
+### color -- optional!
+
+```javascript
+data.color = false;
+```
+Used to add color to the text drawn. If this is true, spots that pass the `data.tileOpen` function will be drawn with the color at that pixel. This is not supported when `data.story` is a array of objects.
 
 ## Return value
 
