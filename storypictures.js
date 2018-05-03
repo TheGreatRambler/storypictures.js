@@ -160,7 +160,8 @@
                     forceSquareRatio: false,
                     fontSize: 12,
                     bg: "#FFFFFF",
-                    fg: "#000000"
+                    fg: "#000000",
+                    fontFamily: data.font || "monospace"
                 });
                 var currentindexoftext = 0;
                 var storyisarray = (texttouse.constructor === Array);
