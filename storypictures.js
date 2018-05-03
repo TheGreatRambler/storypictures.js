@@ -35,7 +35,7 @@
             context = canvas.getContext('2d');
             context.drawImage(data.img, 0, 0);
         } else if (data.img instanceof CanvasRenderingContext2D) {
-            canvas = data.img.context;
+            canvas = data.img.canvas;
             context = data.img;
         } else {
             throw new TypeError("Image must context or image element");
@@ -137,6 +137,26 @@
             var number = (xx >= yy) ? (xx * xx + xx + yy) : (yy * yy + xx);
             return number;
         }
+        
+        function createArray(length) {
+    var arr = new Array(length || 0),
+        i = length;
+
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while(i--) arr[length-1 - i] = createArray.apply(this, args);
+    }
+
+    return arr;
+}
+        
+        function joinmultiarray(array) {
+            var memarray = [];
+            array.forEach(function(value) {
+                memarray.push(value.join(""));
+            });
+            return memarray.join("\n");
+        }
 
         function startdrawing(thedata, texttouse) {
             var display = new ROT.Display({
@@ -149,19 +169,24 @@
             });
             var currentindexoftext = 0;
             var storyisarray = (texttouse.constructor === Array);
+            var outputtext = createArray(thedata.width * 2, thedata.height);
             function drawthething(xxx, yyy, color) {
                 if (storyisarray) {
                     if (Object.prototype.toString.call(texttouse[currentindexoftext]) === '[object Object]') {
                         if (texttouse[currentindexoftext].c) {
                             display.draw(xxx, yyy, texttouse[currentindexoftext].n, texttouse[currentindexoftext].c);
+                            outputtext[xxx][yyy] = texttouse[currentindexoftext].n;
                         } else {
                             display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                            outputtext[xxx][yyy] = texttouse[currentindexoftext];
                         }
                     } else {
                         if (color) {
                             display.draw(xxx, yyy, texttouse[currentindexoftext], color);
+                            outputtext[xxx][yyy] = texttouse[currentindexoftext];
                         } else {
                             display.draw(xxx, yyy, texttouse[currentindexoftext]);
+                            outputtext[xxx][yyy] = texttouse[currentindexoftext];
                         }
                     }
                 } else {
@@ -188,7 +213,10 @@
                 }
             }
 
-            return display._context;
+            return {
+                context: display._context,
+                text: joinmultiarray(outputtext)
+            };
         }
     }
     return storypictures;
