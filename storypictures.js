@@ -81,11 +81,6 @@
 
             var tempCtx = document.createElement('canvas').getContext('2d');
 
-            tempCtx.mozImageSmoothingEnabled = false;
-            tempCtx.webkitImageSmoothingEnabled = false;
-            tempCtx.msImageSmoothingEnabled = false;
-            tempCtx.imageSmoothingEnabled = false;
-
             tempCtx.canvas.width = Math.round(canvas.width * scalefactor);
             tempCtx.canvas.height = Math.round(canvas.height * scalefactor);
 
