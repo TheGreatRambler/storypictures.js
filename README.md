@@ -6,7 +6,9 @@ A javascript library to make pictures with stories (or any string). The only dep
 ## API
 
 ```javascript
-var ctx = storypictures(data);
+storypictures(data).then(function(result) {
+    console.log(result);
+});
 ```
 Data is a object with the following properties:
 
@@ -66,11 +68,14 @@ Used to add color to the text drawn. If this is true, spots that pass the `data.
 ## Return value
 
 ```javascript
-var values = storypictures(data);
-document.body.appendChild(values.context.canvas);
-console.log(values.text);
+storypictures(data).then(function(values) {
+    document.body.appendChild(values.context.canvas);
+    console.log(values.text);
+}).catch(function(error) {
+    throw new Error(error);
+});
 ```
-The function returns a object with a canvas and a text string that you can print.
+The function returns a promise that resolves with a canvas and a text string that you can print.
 
 # License
 MIT
