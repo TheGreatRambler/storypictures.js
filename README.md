@@ -65,6 +65,14 @@ data.color = false;
 ```
 Used to add color to the text drawn. If this is true, spots that pass the `data.tileOpen` function will be drawn with the color at that pixel. This is not supported when `data.story` is a array of objects.
 
+### font -- optional!
+
+```javascript
+data.font = "arial";
+```
+
+Used to specify the font to use.
+
 ## Return value
 
 ```javascript
