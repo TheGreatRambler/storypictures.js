@@ -192,8 +192,10 @@
                 } else {
                     if (color) {
                         display.draw(xxx, yyy, texttouse.charAt(currentindexoftext), color);
+                        outputtext[xxx][yyy] = texttouse.charAt(currentindexoftext);
                     } else {
                         display.draw(xxx, yyy, texttouse.charAt(currentindexoftext));
+                        outputtext[xxx][yyy] = texttouse.charAt(currentindexoftext);
                     }
                 }
                 currentindexoftext++;
