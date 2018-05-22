@@ -86,4 +86,4 @@ storypictures(data).then(function(values) {
 The function returns a promise that resolves with a canvas and a text string that you can print.
 
 # License
-MIT
+MIT, EVERYBODY'S FAVORITE SOFTWARE LICENSE!!!
